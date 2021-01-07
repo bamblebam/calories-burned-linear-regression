@@ -5,3 +5,4 @@ A simple linear regression model on the data gave a r2 score of 0.9672. Upon usi
  <p align="center">
   <img src="./images/rf.png" />  
 </p>   
+Using a neural network increased the r2 score to 0.9997. A significant improvement.

@@ -5,6 +5,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow import keras
+from keras import Sequential
+from keras.layers import Dense, Activation
+from keras.callbacks import ModelCheckpoint, EarlyStopping
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, RobustScaler
 from sklearn.linear_model import LinearRegression
@@ -107,4 +110,22 @@ print(r2)
 plt.plot(inv_true.flatten(), marker='.', label='true')
 plt.plot(inv_rf_pred.flatten(), 'r', marker='.', label='predicted')
 plt.legend()
+# %%
+model = Sequential([
+    Dense(64, activation='relu'),
+    Dense(64, activation='relu'),
+    Dense(1)
+])
+model.compile(loss='mean_absolute_error', optimizer='adam')
+modelcheckpoint = ModelCheckpoint('models/model1.h5', save_best_only=True)
+model.fit(X_train, Y_train, validation_split=0.2, epochs=20, batch_size=32,
+          shuffle=True, callbacks=[modelcheckpoint])
+
+# %%
+tf_pred = model.predict(X_test)
+# %%
+inv_true = Y_scaler.inverse_transform(Y_test)
+inv_tf_pred = Y_scaler.inverse_transform(tf_pred)
+r2 = r2_score(inv_true, inv_tf_pred)
+print(r2)
 # %%
