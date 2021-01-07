@@ -10,6 +10,7 @@ from sklearn.preprocessing import LabelEncoder, RobustScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.decomposition import PCA
 from matplotlib import rcParams
 rcParams['figure.figsize'] = 22, 10
 RANDOM_SEED = 42
@@ -49,6 +50,11 @@ X_scaler = RobustScaler()
 Y_scaler = RobustScaler()
 X = X_scaler.fit_transform(X)
 Y = Y_scaler.fit_transform(Y)
+# %%
+X_pca = PCA()
+Y_pca = PCA()
+X = X_pca.fit_transform(X)
+Y = Y_pca.fit_transform(Y)
 # %%
 print(Y[0])
 # %%
@@ -90,8 +96,11 @@ rf_pred = rf_reg.predict(X_test).reshape(-1, 1)
 r2 = r2_score(Y_test, rf_pred)
 print(r2)
 # %%
-inv_rf_pred = Y_scaler.inverse_transform(rf_pred)
-r2 = r2_score(Y_test, rf_pred)
+inv_pca_true = Y_pca.inverse_transform(Y_test)
+inv_true = Y_scaler.inverse_transform(inv_pca_true)
+inv_pca_rf_pred = Y_pca.inverse_transform(rf_pred)
+inv_rf_pred = Y_scaler.inverse_transform(inv_pca_rf_pred)
+r2 = r2_score(inv_true, rf_pred)
 print(r2)
 
 # %%
