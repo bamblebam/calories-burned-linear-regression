@@ -9,6 +9,6 @@ A simple linear regression model on the data gave a r2 score of 0.9672. Upon usi
 Using a neural network increased the r2 score to 0.9997. A significant improvement.   
 #### Tensorflow Model Predictions
  <p align="center">
-  <img src="./images/rf.png" />  
+  <img src="./images/tf.png" />  
 </p>  
 The model can probably be further improved by adding more layers.
