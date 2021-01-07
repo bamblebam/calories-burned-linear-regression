@@ -127,5 +127,10 @@ tf_pred = model.predict(X_test)
 inv_true = Y_scaler.inverse_transform(Y_test)
 inv_tf_pred = Y_scaler.inverse_transform(tf_pred)
 r2 = r2_score(inv_true, inv_tf_pred)
+# r2 = r2_score(Y_test, tf_pred)
 print(r2)
+# %%
+plt.plot(inv_true.flatten(), marker='.', label='true')
+plt.plot(inv_tf_pred.flatten(), 'r', marker='.', label='predicted')
+plt.legend()
 # %%
