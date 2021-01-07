@@ -8,6 +8,7 @@ from tensorflow import keras
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, RobustScaler
 from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
 from matplotlib import rcParams
 rcParams['figure.figsize'] = 22, 10
 RANDOM_SEED = 42
@@ -49,4 +50,17 @@ X = X_scaler.fit_transform(X)
 Y = Y_scaler.fit_transform(Y)
 # %%
 print(Y[0])
+# %%
+X_train, X_test, Y_train, Y_test = train_test_split(
+    X, Y, test_size=0.2, random_state=RANDOM_SEED)
+
+# %%
+reg = LinearRegression()
+reg.fit(X_train, Y_train)
+# %%
+reg.score(X_train, Y_train)
+# %%
+pred = reg.predict(X_test)
+# %%
+r2_score(Y_test, pred)
 # %%
