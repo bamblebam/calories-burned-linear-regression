@@ -95,3 +95,7 @@ r2 = r2_score(Y_test, rf_pred)
 print(r2)
 
 # %%
+plt.plot(inv_true.flatten(), marker='.', label='true')
+plt.plot(inv_rf_pred.flatten(), 'r', marker='.', label='predicted')
+plt.legend()
+# %%
