@@ -32,3 +32,21 @@ sns.scatterplot(x='Weight', y='Calories', data=df)
 # %%
 sns.scatterplot(x='Height', y='Calories', data=df)
 # %%
+label_encoder = LabelEncoder()
+df['Gender'] = label_encoder.fit_transform(df['Gender'])
+df.head()
+# %%
+X = df.drop(['Calories'], axis=1)
+Y = pd.DataFrame(df['Calories'])
+X.reset_index(drop=True, inplace=True)
+Y.reset_index(drop=True, inplace=True)
+X.head()
+Y.head()
+# %%
+X_scaler = RobustScaler()
+Y_scaler = RobustScaler()
+X = X_scaler.fit_transform(X)
+Y = Y_scaler.fit_transform(Y)
+# %%
+print(Y[0])
+# %%
