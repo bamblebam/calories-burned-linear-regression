@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow import keras
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, RobustScaler
 from sklearn.linear_model import LinearRegression
 from matplotlib import rcParams
 rcParams['figure.figsize'] = 22, 10
@@ -18,4 +19,16 @@ df.head()
 # %%
 df.drop(['User_ID'], axis=1, inplace=True)
 df.head()
+# %%
+df.isnull().sum()
+# %%
+sns.scatterplot(x='Age', y='Calories', data=df)
+# %%
+sns.scatterplot(x='Body_Temp', y='Calories', data=df)
+
+# %%
+sns.scatterplot(x='Weight', y='Calories', data=df)
+
+# %%
+sns.scatterplot(x='Height', y='Calories', data=df)
 # %%
