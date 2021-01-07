@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, RobustScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+from sklearn.ensemble import RandomForestRegressor
 from matplotlib import rcParams
 rcParams['figure.figsize'] = 22, 10
 RANDOM_SEED = 42
@@ -79,4 +80,18 @@ print(r2, mae)
 r2 = r2_score(inv_true, inv_pred)
 mae = scaled_mean_absolute_error(inv_true, inv_pred)
 print(r2, mae)
+# %%
+rf_reg = RandomForestRegressor()
+rf_reg.fit(X_train, Y_train)
+rf_reg.score(X_train, Y_train)
+# %%
+rf_pred = rf_reg.predict(X_test).reshape(-1, 1)
+# %%
+r2 = r2_score(Y_test, rf_pred)
+print(r2)
+# %%
+inv_rf_pred = Y_scaler.inverse_transform(rf_pred)
+r2 = r2_score(Y_test, rf_pred)
+print(r2)
+
 # %%
