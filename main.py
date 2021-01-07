@@ -8,7 +8,7 @@ from tensorflow import keras
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, RobustScaler
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import r2_score
+from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 from matplotlib import rcParams
 rcParams['figure.figsize'] = 22, 10
 RANDOM_SEED = 42
@@ -62,5 +62,21 @@ reg.score(X_train, Y_train)
 # %%
 pred = reg.predict(X_test)
 # %%
-r2_score(Y_test, pred)
+inv_pred = Y_scaler.inverse_transform(pred)
+inv_true = Y_scaler.inverse_transform(Y_test)
+# %%
+
+
+def scaled_mean_absolute_error(Y_true, Y_pred):
+    return np.mean(np.abs((Y_pred-Y_true)))/np.mean(Y_true)
+
+
+# %%
+r2 = r2_score(Y_test, pred)
+mae = scaled_mean_absolute_error(Y_test, pred)
+print(r2, mae)
+# %%
+r2 = r2_score(inv_true, inv_pred)
+mae = scaled_mean_absolute_error(inv_true, inv_pred)
+print(r2, mae)
 # %%
